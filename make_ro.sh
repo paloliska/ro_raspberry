@@ -24,4 +24,9 @@ mkdir /etc_rw
 mkdir /var /var_rw
 
 chmod +x /home/pi/rw.sh
-reboot
+
+echo "Check your /etc/fstab (compare with backup /etc/fstab.bck)!"
+echo "Check your /boot/cmdline.txt, should be same like cmdline.txt.bck, with ro added at the end!"
+echo "After check reboot."
+
+#reboot
