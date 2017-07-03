@@ -5,9 +5,9 @@ update-rc.d dphys-swapfile disable
 systemctl disable systemd-readahead-collect
 systemctl disable systemd-random-seed
 
-apt-get -y install busybox-syslogd -force-yes
+apt-get -y install busybox-syslogd --force-yes
 dpkg --purge rsyslog
-apt-get -y install unionfs-fuse -force-yes
+apt-get -y install unionfs-fuse --force-yes
 
 cp mount_unionfs /usr/local/bin/mount_unionfs
 chmod +x /usr/local/bin/mount_unionfs
