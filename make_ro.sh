@@ -9,11 +9,25 @@ apt-get -y install busybox-syslogd --force-yes
 dpkg --purge rsyslog
 apt-get -y install unionfs-fuse --force-yes
 
+PKG_OK=$(dpkg-query -W --showformat='${Status}\n' busybox-syslogd|grep "install ok installed")
+echo Checking for busybox-syslogd: $PKG_OK
+if [ "" == "$PKG_OK" ]; then
+  echo "No busybox-syslogd. Exiting."
+  echo "FAILED, PROCEED MANUALY."
+fi
+
+PKG_OK=$(dpkg-query -W --showformat='${Status}\n' unionfs-fuse|grep "install ok installed")
+echo Checking for unionfs-fuse: $PKG_OK
+if [ "" == "$PKG_OK" ]; then
+  echo "No unionfs-fuse. Exiting."
+  echo "FAILED, PROCEED MANUALY."
+fi
+
 cp mount_unionfs /usr/local/bin/mount_unionfs
 chmod +x /usr/local/bin/mount_unionfs
 
 cp /boot/cmdline.txt /boot/cmdline.txt.bck
-echo -n " ro" >> /boot/cmdline.txt
+sed 's/$/ ro/' /boot/cmdline.txt > /boot/cmdline.txt
 
 cp /etc/fstab /etc/fstab.bck
 cp fstab.new /etc/fstab
